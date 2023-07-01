@@ -8,7 +8,7 @@ import java.net.InetSocketAddress;
 
 class Main {
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ApplicationContext();
+        ApplicationContext applicationContext = new ApplicationContext("/api/v1/");
         applicationContext.initialize("fr.thomasfar.jaf");
         InetSocketAddress address = new InetSocketAddress(8080);
         try {

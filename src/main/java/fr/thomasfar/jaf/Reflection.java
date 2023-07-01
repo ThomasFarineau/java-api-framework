@@ -1,5 +1,7 @@
 package fr.thomasfar.jaf;
 
+import fr.thomasfar.jaf.annotations.Annotations;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -10,6 +12,12 @@ import java.util.List;
 public class Reflection {
     private final String packageName;
     private Iterable<Class<?>> classes;
+
+    public Reflection(String packageName) {
+        this.packageName = packageName;
+        this.setClasses();
+    }
+
     private static List<Class<?>> findClasses(File directory, String packageName) throws ClassNotFoundException {
         List<Class<?>> classes = new ArrayList<>();
         if (!directory.exists()) return classes;
@@ -23,11 +31,6 @@ public class Reflection {
             }
         }
         return classes;
-    }
-
-    public Reflection(String packageName) {
-        this.packageName = packageName;
-        this.setClasses();
     }
 
     private void setClasses() {

@@ -1,6 +1,7 @@
 package fr.thomasfar.jaf;
 
 import fr.thomasfar.jaf.annotations.Annotations;
+import fr.thomasfar.jaf.annotations.Controller;
 import fr.thomasfar.jaf.annotations.Route;
 import fr.thomasfar.jaf.utils.Pair;
 
@@ -15,8 +16,13 @@ public class ApplicationContext {
     private final Map<Class<?>, Object> serviceRegistry = new HashMap<>();
     private final Map<Class<?>, Object> controllerRegistry = new HashMap<>();
     private final Map<Pair<String, Route.HttpMethod>, Method> routesRegistry = new HashMap<>();
+    private String defaultRoute = "/";
 
     Reflection reflection;
+
+    public ApplicationContext(String defaultRoute) {
+        this.defaultRoute = defaultRoute;
+    }
 
     public void initialize(String packageName) {
         this.reflection = new Reflection(packageName);
@@ -31,6 +37,7 @@ public class ApplicationContext {
                 try {
                     Object controllerInstance = clazz.getDeclaredConstructor().newInstance();
                     controllerRegistry.put(clazz, controllerInstance);
+                    Controller controller = (Controller) clazz.getAnnotation(Annotations.Controller.getAnnotation());
                     for (Field declaredField : clazz.getDeclaredFields()) {
                         if (declaredField.isAnnotationPresent(Annotations.Inject.getAnnotation())) {
                             Object serviceInstance = serviceRegistry.get(declaredField.getType());
@@ -44,7 +51,9 @@ public class ApplicationContext {
                     for (Method declaredMethod : clazz.getDeclaredMethods()) {
                         if (declaredMethod.isAnnotationPresent(Annotations.Route.getAnnotation())) {
                             Route route = (Route) declaredMethod.getAnnotation(Annotations.Route.getAnnotation());
-                            routesRegistry.put(new Pair<>(route.value(), route.method()), declaredMethod);
+                            String realPath = defaultRoute + controller.value() + route.value();
+                            realPath = realPath.replaceAll("/+", "/");
+                            routesRegistry.put(new Pair<>(realPath, route.method()), declaredMethod);
                         }
                     }
                 } catch (Exception e) {

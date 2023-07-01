@@ -5,7 +5,7 @@ import fr.thomasfar.jaf.annotations.Inject;
 import fr.thomasfar.jaf.annotations.Route;
 import fr.thomasfar.jaf.services.DefaultService;
 
-@Controller(value = "/default")
+@Controller(value = "/default/")
 public class DefaultController {
 
     @Inject private DefaultService defaultService;
