@@ -10,13 +10,13 @@ public enum Annotations {
     Entity(fr.thomasfar.jaf.annotations.Entity.class),
     Inject(fr.thomasfar.jaf.annotations.Inject.class);
 
-    private final Class<? extends Annotation> classObject;
+    private final Class<? extends Annotation> name;
 
     Annotations(Class<? extends Annotation> classObject) {
-        this.classObject = classObject;
+        this.name = classObject;
     }
 
-    public Class<? extends Annotation> getAnnotation() {
-        return classObject;
+    public Class<? extends Annotation> getName() {
+        return name;
     }
 }

@@ -2,6 +2,7 @@ package fr.thomasfar.jaf;
 
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
+import fr.thomasfar.jaf.utils.Response;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -17,9 +18,10 @@ class Main {
             context.setHandler(httpExchange -> {
                 String method = httpExchange.getRequestMethod();
                 String path = httpExchange.getRequestURI().getPath();
-                String response = applicationContext.executeRoute(method, path);
-                httpExchange.sendResponseHeaders(200, response.length());
-                httpExchange.getResponseBody().write(response.getBytes());
+
+                Response response = applicationContext.executeRoute(method, path);
+                httpExchange.sendResponseHeaders(response.status(), response.body().length());
+                httpExchange.getResponseBody().write(response.body().getBytes());
                 httpExchange.close();
             });
             server.start();

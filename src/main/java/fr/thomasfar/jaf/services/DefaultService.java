@@ -12,4 +12,8 @@ public class DefaultService {
     public String hello() {
         return "Hello World!";
     }
+
+    public String hello(int id) {
+        return "Hello World! " + id;
+    }
 }

@@ -14,4 +14,9 @@ public class DefaultController {
     public String index() {
         return defaultService.hello();
     }
+
+    @Route(value = "/thomas/{id}/{id2}", method = Route.HttpMethod.GET)
+    public String index2(int id, int id2) {
+        return defaultService.hello(id) + " " + defaultService.hello(id2);
+    }
 }
