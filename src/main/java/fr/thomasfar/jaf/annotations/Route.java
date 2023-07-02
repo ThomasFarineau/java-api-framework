@@ -5,6 +5,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
+/**
+ * Route annotation is used to define a route.
+ * Each Route annoted method should return a Response object.
+ * @since 1.0
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Route {

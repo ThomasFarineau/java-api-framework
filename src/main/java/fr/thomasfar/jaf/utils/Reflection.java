@@ -1,6 +1,4 @@
-package fr.thomasfar.jaf;
-
-import fr.thomasfar.jaf.annotations.Annotations;
+package fr.thomasfar.jaf.utils;
 
 import java.io.File;
 import java.io.IOException;

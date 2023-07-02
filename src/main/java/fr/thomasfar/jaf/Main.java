@@ -21,6 +21,7 @@ class Main {
 
                 Response response = applicationContext.executeRoute(method, path);
                 httpExchange.sendResponseHeaders(response.status(), response.body().length());
+                httpExchange.getResponseHeaders().add("Content-Type", "application/json");
                 httpExchange.getResponseBody().write(response.body().getBytes());
                 httpExchange.close();
             });
