@@ -2,16 +2,11 @@ package fr.thomasfar.jaf.utils;
 
 import java.util.Objects;
 
-public final class Response {
-    private final int status;
-    private final String body;
-
-    public Response(int status, String body) {
+public record Response(int status, String body) {
+    public Response {
         if (status < 100 || status > 599) {
             throw new IllegalArgumentException("Status code must be between 100 and 599");
         }
-        this.status = status;
-        this.body = body;
     }
 
     public static Response ok() {
@@ -94,14 +89,6 @@ public final class Response {
         return new Response(500, body);
     }
 
-    public int status() {
-        return status;
-    }
-
-    public String body() {
-        return body;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
@@ -109,11 +96,6 @@ public final class Response {
         var that = (Response) obj;
         return this.status == that.status &&
                 Objects.equals(this.body, that.body);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(status, body);
     }
 
     @Override

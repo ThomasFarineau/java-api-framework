@@ -12,7 +12,6 @@ public class DefaultService {
 
     public String hello() {
         DefaultEntity defaultEntity = new DefaultEntity( "Thomas");
-        defaultEntity.setName("test");
         return defaultEntity.toJson();
     }
 

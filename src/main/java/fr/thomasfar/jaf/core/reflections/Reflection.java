@@ -1,7 +1,8 @@
-package fr.thomasfar.jaf.utils;
+package fr.thomasfar.jaf.core.reflections;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -51,7 +52,15 @@ public class Reflection {
         }
     }
 
-    public Iterable<Class<?>> getClasses() {
+    public Iterable<Class<?>> getAnnotedClasses(Class<? extends Annotation> annotation) {
+        List<Class<?>> classes = new ArrayList<>();
+        for (Class<?> clazz : this.classes) {
+            if (clazz.isAnnotationPresent(annotation)) classes.add(clazz);
+        }
         return classes;
+    }
+
+    public String getPackageName() {
+        return packageName;
     }
 }

@@ -1,5 +1,7 @@
 package fr.thomasfar.jaf.annotations;
 
+import fr.thomasfar.jaf.utils.HttpMethod;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -16,8 +18,5 @@ import java.lang.annotation.Target;
 public @interface Route {
     String value();
     HttpMethod method() default HttpMethod.GET;
-
-    enum HttpMethod {
-        GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS, TRACE, CONNECT, ANY;
-    }
 }
+
